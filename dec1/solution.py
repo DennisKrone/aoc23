@@ -32,7 +32,6 @@ digits = []
 for line in data:
     translated_line = replace_written_numbers(line)
     all_digits = "".join(filter(str.isdigit, translated_line))
-    final_digits = int(all_digits[0] + all_digits[-1])
     digits.append(int(all_digits[0] + all_digits[-1]))
 
 
