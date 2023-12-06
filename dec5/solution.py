@@ -7,7 +7,7 @@ with open("input.txt", "r") as file:
     data = file.read()
     lines = data.splitlines()
     seedline = lines.pop(0)
-    p1_seeds = re.findall(r'\d+', seedline)
+    p1_seeds = re.findall(r"\d+", seedline)
     p1_seeds = [int(i) for i in p1_seeds]
     lines = list(filter(None, lines))
 
@@ -17,7 +17,7 @@ with open("input.txt", "r") as file:
     map_count = 0
     maps.append([])
     for line in lines:
-        numbers = re.findall(r'\d+', line)
+        numbers = re.findall(r"\d+", line)
         numbers = [int(i) for i in numbers]
         if numbers:
             maps[map_count].append(numbers)
@@ -31,16 +31,16 @@ def get_output_from_map(input: int, map_list: list[list[int]]) -> int:
     for l in map_list:
         if l[1] <= input <= l[1] + l[2]:
             return l[0] + (input - l[1])
-            
+
     return input
 
 
-p1_soil_numbers = []      
+p1_soil_numbers = []
 for seed in p1_seeds:
     value = seed
     for map in maps:
         value = get_output_from_map(value, map)
-    
+
     p1_soil_numbers.append(value)
 
 
@@ -94,7 +94,10 @@ def split_range(range: list[int], map: list[int]) -> dict:
 
     return {"inside": ranges_inside, "outside": ranges_outside}
 
+
 p2_locations = []
+
+
 def locations_for_range(start: int, end: int) -> list[int]:
     ranges = [[start, end]]
     for map in maps:
@@ -109,22 +112,19 @@ def locations_for_range(start: int, end: int) -> list[int]:
                     new_ranges.append(inside)
                 checked.extend(split["outside"])
             ranges = checked
-                
+
         ranges.extend(new_ranges)
 
-    p2_locations.append(ranges)
-    
+    p2_locations.extend(ranges)
+
 
 for r in p2_seed_ranges:
     locations_for_range(r[0], r[1])
 
 
-
 locations = []
-for location in p2_locations:
-    for r in location:
-        for i in r:
-            locations.append(i)
+for r in p2_locations:
+    locations.append(r[0])
 
 print(min(p1_soil_numbers))
 print(min(locations))

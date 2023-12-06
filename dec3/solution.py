@@ -16,13 +16,16 @@ for line_count, line in enumerate(lines):
                 n_coord["value"] += char
                 n_coord["coords"].append({"x": char_count, "y": line_count})
             else:
-                n_coord = {"value": char, "coords": [{"x": char_count, "y": line_count}]}
+                n_coord = {
+                    "value": char,
+                    "coords": [{"x": char_count, "y": line_count}],
+                }
         else:
             if n_coord:
                 n_coord["value"] = int(n_coord["value"])
                 number_map.append(n_coord)
                 n_coord = None
-            
+
     if n_coord:
         if n_coord:
             n_coord["value"] = int(n_coord["value"])
@@ -30,6 +33,7 @@ for line_count, line in enumerate(lines):
             n_coord = None
 
 special_characters = "!@#$%^&*()-+?_=,<>/"
+
 
 def get_surrounding_coords(x: int, y: int):
     surrounding = []
@@ -39,7 +43,7 @@ def get_surrounding_coords(x: int, y: int):
         surrounding.append({"x": x, "y": y - 1})
         if x + 1 <= len(lines[y - 1]) - 1:
             surrounding.append({"x": x + 1, "y": y - 1})
-    
+
     if x - 1 >= 0:
         surrounding.append({"x": x - 1, "y": y})
     if x + 1 <= len(lines[y]) - 1:
@@ -52,6 +56,7 @@ def get_surrounding_coords(x: int, y: int):
         if x + 1 <= len(lines[y + 1]) - 1:
             surrounding.append({"x": x + 1, "y": y + 1})
     return surrounding
+
 
 def get_surrounding_characters(x: int, y: int):
     characters = []
@@ -82,7 +87,6 @@ for gear in gear_coords:
         for num in surrounding_numbers:
             prod *= num
         p2_sum += prod
-    
 
 
 print(p1_sum)
